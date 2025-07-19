@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marathi Traditional Nath Design Classes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .class-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .class-details img {
+            flex: 1;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .details ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .details ul li strong {
+            color: #007bff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        .registration-form {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .registration-form h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+		
+		.gallery {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.gallery h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.gallery p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marathi Traditional Nath Design Classes</h1>
+    </header>
+
+    <div class="container">
+    <!-- Class Details -->
+    <div class="class-details">
+        <img src="./index_files/b1.jpg" alt="Class Image">
+        <div class="details">
+            <h2>Why Join This Class?</h2>
+            <ul>
+                <li><strong>Duration:</strong> 4 weeks (Weekend Classes)</li>
+                <li><strong>Mode:</strong> Online and Offline (Mumbai)</li>
+                <li><strong>Fee:</strong> ₹3000</li>
+                <li><strong>Skills You Will Learn:</strong> Create traditional Marathi Nath designs, enhance creativity, and explore unique jewelry-making techniques.</li>
+            </ul>
+            <a href="#" class="cta-button" id="showForm">Register Now</a>
+        </div>
+    </div>
+
+    <!-- Jewelry Gallery -->
+    <div class="gallery">
+        <h2>Explore Our Jewelry Creations</h2>
+        <p>Here are some of the unique designs you'll learn to create during the class:</p>
+        <div class="gallery-grid">
+            <img src="image1.jpg" alt="Jewelry Design 1">
+            <img src="image2.jpg" alt="Jewelry Design 2">
+            <img src="image3.jpg" alt="Jewelry Design 3">
+            <img src="image4.jpg" alt="Jewelry Design 4">
+            <img src="image5.jpg" alt="Jewelry Design 5">
+            <img src="image6.jpg" alt="Jewelry Design 6">
+        </div>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="registration-form" id="registrationForm">
+        <h3>Registration Form</h3>
+        <form action="#" method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="mode">Preferred Mode of Class</label>
+            <select id="mode" name="mode" required>
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
+            </select>
+
+            <label for="message">Additional Message</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+    <footer>
+        © 2024 Aarul.online. All Rights Reserved.
+    </footer>
+
+    <script>
+        // Show the registration form when "Register Now" is clicked
+        document.getElementById('showForm').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the link from navigating
+            document.getElementById('registrationForm').style.display = 'block';
+            this.style.display = 'none'; // Hide the "Register Now" button
+        });
+    </script>
+</body>
+</html>

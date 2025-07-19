@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Aarul.online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f4f4f9;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 230px;
+            background-color: #343a40;
+            padding: 20px;
+            color: #fff;
+            position: fixed; /* Fix the sidebar position */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full height */
+            overflow-y: auto;
+            z-index: 10; /* Ensure it stays above content */
+        }
+
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffc107;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #adb5bd;
+            font-size: 1rem;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover, .sidebar ul li a.active {
+            background-color: #495057;
+            color: #ffc107;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            margin-left: 270px; /* Ensure content does not overlap sidebar */
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .content h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #343a40;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #343a40;
+        }
+
+        .product p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .product .price {
+            font-size: 1rem;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .product button:hover {
+            background-color: #0056b3;
+        }
+		
+		.home-button {
+        display: block;
+        text-align: center;
+        padding: 1px 1px;
+        margin-top: auto;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #343a40;
+        background-color: #fff;
+        border: 2px solid #343a40;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .home-button:hover {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Ensures Home Page button is at the bottom */
+        height: 100vh; /* Full height for sidebar */
+    }
+
+		
+		/* Product details modal */
+        .product-details {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 900px;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .product-details img {
+            width: 30%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .product-details h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+
+        .product-details .price {
+            font-size: 1.5rem;
+            color: #007bff;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .product-details .description {
+            font-size: 1rem;
+            color: #666;
+            margin: 15px 0;
+        }
+
+        .product-details .rating {
+            margin: 15px 0;
+        }
+
+        .product-details .rating span {
+            color: #ff9900;
+            font-size: 1.2rem;
+        }
+
+        .product-details .buy-now {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .product-details .buy-now:hover {
+            background-color: #0056b3;
+        }
+
+        .product-details .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+		.overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .product-details {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        .product-details img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .product-details button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .buy-now {
+            background-color: #007BFF;
+            color: white;
+        }
+        .buy-now:hover {
+            background-color: #0056b3;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Cart Modal */
+		.cart-modal {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+			width: 80%;
+			max-width: 600px;
+			z-index: 1001;
+			padding: 20px;
+			max-height: 80vh; /* Limit the height of the modal */
+			overflow: hidden; /* Prevent content from spilling out */
+		}
+
+		/* Cart Header */
+		.cart-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.cart-header h2 {
+			font-size: 1.5rem;
+			margin: 0;
+		}
+
+		.cart-header .close-cart {
+			background: transparent;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			color: #343a40;
+		}
+
+		.cart-header .close-cart:hover {
+			color: #dc3545;
+		}
+
+		/* Cart Items Container with Scroll */
+		#cart-items {
+			max-height: 400px; /* Adjust as per your design */
+			overflow-y: auto;  /* Enable scrolling */
+			margin-bottom: 20px;
+		}
+
+		.cart-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+			padding: 10px;
+			background-color: #f9f9f9;
+			border-radius: 5px;
+		}
+
+		.cart-item img {
+			width: 50px;
+			height: auto;
+		}
+
+		.cart-item .info {
+			flex: 1;
+			margin-left: 10px;
+		}
+
+		.cart-item .remove {
+			background-color: #dc3545;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.cart-item .remove:hover {
+			background-color: #c82333;
+		}
+
+		/* Cart Footer */
+		.cart-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.cart-footer .total-price {
+			font-size: 1.2rem;
+			font-weight: bold;
+		}
+
+		.cart-footer button {
+			background-color: #007bff;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.cart-footer button:hover {
+			background-color: #0056b3;
+		}
+
+		/* Overlay */
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 999;
+		}
+
+		.cart-modal {
+			display: none; /* Initially hidden */
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			z-index: 1001; /* Above the overlay */
+		}
+		
+		/* Optional CSS for the success message */
+			.message-container {
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				animation: fadeIn 0.5s ease-in-out;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+    <h2>Categories</h2>
+    <ul>
+        <li><a href="#" class="active">All Products</a></li>
+        <li><a href="#">Necklaces</a></li>
+        <li><a href="#">Earrings</a></li>
+        <li><a href="#">Bracelets</a></li>
+        <li><a href="#">Rings</a></li>
+    </ul>
+    <a href="file:///C:/ketan/Internship/Healet/healet-html/index.html" class="home-button">Home Page</a>
+</div>
+
+
+
+    <div class="content">
+        <h1>Aarul Jewellery</h1>
+        <div class="product-grid">
+            <!-- Necklaces -->
+            <div class="product" data-category="necklaces" data-id="101">
+                <img src="https://via.placeholder.com/250" alt="Necklace">
+                <h3>Elegant Necklace</h3>
+                <p>Beautiful handmade necklace</p>
+                <p class="price">$45.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="necklaces" data-id="102">
+                <img src="https://via.placeholder.com/250" alt="Necklace">
+                <h3>Gold Necklace</h3>
+                <p>Premium gold necklace</p>
+                <p class="price">$80.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="necklaces" data-id="103">
+                <img src="https://via.placeholder.com/250" alt="Necklace">
+                <h3>Diamond Necklace</h3>
+                <p>Elegant diamond necklace</p>
+                <p class="price">$150.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="necklaces" data-id="104">
+                <img src="https://via.placeholder.com/250" alt="Necklace">
+                <h3>Sapphire Necklace</h3>
+                <p>Stylish sapphire necklace</p>
+                <p class="price">$120.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <!-- Earrings -->
+            <div class="product" data-category="earrings" data-id="201">
+                <img src="https://via.placeholder.com/250" alt="Earrings">
+                <h3>Gold Earrings</h3>
+                <p>Classic gold earrings</p>
+                <p class="price">$40.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="earrings" data-id="202">
+                <img src="https://via.placeholder.com/250" alt="Earrings">
+                <h3>Diamond Earrings</h3>
+                <p>Elegant diamond earrings</p>
+                <p class="price">$120.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="earrings" data-id="203">
+                <img src="https://via.placeholder.com/250" alt="Earrings">
+                <h3>Silver Earrings</h3>
+                <p>Stylish silver earrings</p>
+                <p class="price">$30.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="earrings" data-id="204">
+                <img src="https://via.placeholder.com/250" alt="Earrings">
+                <h3>Pearl Earrings</h3>
+                <p>Timeless pearl earrings</p>
+                <p class="price">$55.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <!-- Bracelets -->
+            <div class="product" data-category="bracelets" data-id="301">
+                <img src="https://via.placeholder.com/250" alt="Bracelet">
+                <h3>Leather Bracelet</h3>
+                <p>Stylish leather bracelet</p>
+                <p class="price">$20.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="bracelets" data-id="302">
+                <img src="https://via.placeholder.com/250" alt="Bracelet">
+                <h3>Silver Bracelet</h3>
+                <p>Elegant silver bracelet</p>
+                <p class="price">$45.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="bracelets" data-id="303">
+                <img src="https://via.placeholder.com/250" alt="Bracelet">
+                <h3>Gold Bracelet</h3>
+                <p>Premium gold bracelet</p>
+                <p class="price">$90.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="bracelets" data-id="304">
+                <img src="https://via.placeholder.com/250" alt="Bracelet">
+                <h3>Diamond Bracelet</h3>
+                <p>Elegant diamond bracelet</p>
+                <p class="price">$150.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <!-- Rings -->
+            <div class="product" data-category="rings" data-id="401">
+                <img src="https://via.placeholder.com/250" alt="Ring">
+                <h3>Gold Ring</h3>
+                <p>Classic gold ring</p>
+                <p class="price">$60.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="rings" data-id="402">
+                <img src="https://via.placeholder.com/250" alt="Ring">
+                <h3>Diamond Ring</h3>
+                <p>Luxury diamond ring</p>
+                <p class="price">$250.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="rings" data-id="403">
+                <img src="https://via.placeholder.com/250" alt="Ring">
+                <h3>Sapphire Ring</h3>
+                <p>Elegant sapphire ring</p>
+                <p class="price">$150.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-category="rings" data-id="404">
+                <img src="https://via.placeholder.com/250" alt="Ring">
+                <h3>Platinum Ring</h3>
+                <p>Exclusive platinum ring</p>
+                <p class="price">$350.00</p>
+                <button class="view-details">View Details</button>
+				<button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+	
+	     <!-- Start of Product Details Modal -->
+    <div class="overlay">
+          <div class="product-details">
+            <button class="close">&times;</button>
+            <img src="jewellery.jpg" alt="Jewellery Image">
+            <h3 id="product-name">Beautiful Gold Necklace</h3>
+            <p class="price" id="product-price">$399</p>
+            <p class="description" id="product-description">A stunning gold necklace perfect for all occasions.</p>
+            <div class="rating">
+                <span>⭐⭐⭐⭐⭐</span> (200 reviews)
+            </div>
+            <button class="buy-now" onclick="redirectToOrderPage()">Buy Now</button>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Close button functionality
+        document.querySelector('.close').addEventListener('click', function() {
+            document.querySelector('.overlay').style.display = 'none';
+        });
+
+        // Redirect to the "Order Page.html" with product details
+        document.querySelector('.buy-now').addEventListener('click', function() {
+            // Get product details
+            const name = document.getElementById('product-name').innerText;
+            const price = document.getElementById('product-price').innerText;
+            const description = document.getElementById('product-description').innerText;
+
+            // Create URL with parameters
+            const orderPageUrl = `Order Page.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
+
+            // Redirect to Order Page
+            window.location.href = orderPageUrl;
+        });
+    </script>
+    <script>
+        // Handle category click
+        document.querySelectorAll('.sidebar ul li a').forEach(categoryLink => {
+            categoryLink.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const category = this.textContent.toLowerCase();
+
+                document.querySelectorAll('.product').forEach(product => {
+                    if (category === 'all products' || product.dataset.category === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+
+                document.querySelectorAll('.sidebar ul li a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Handle View Details button click
+        document.querySelectorAll('.view-details').forEach(button => {
+            button.addEventListener('click', function () {
+                const product = this.parentElement;
+                const detailsModal = document.querySelector('.product-details');
+                const overlay = document.querySelector('.overlay');
+
+                // Set modal content
+                detailsModal.querySelector('img').src = product.querySelector('img').src;
+                detailsModal.querySelector('h3').textContent = product.querySelector('h3').textContent;
+                detailsModal.querySelector('.description').textContent = product.querySelector('p:nth-of-type(1)').textContent;
+                detailsModal.querySelector('.price').textContent = product.querySelector('.price').textContent;
+
+                overlay.style.display = 'block';
+                detailsModal.style.display = 'block';
+            });
+        });
+
+        // Close modal and reset content
+        document.querySelector('.product-details .close').addEventListener('click', function () {
+            closeModal();
+        });
+
+
+        // Close modal when clicking overlay
+        document.querySelector('.overlay').addEventListener('click', function () {
+            closeModal();
+        });
+
+        function closeModal() {
+            const modal = document.querySelector('.product-details');
+            const overlay = document.querySelector('.overlay');
+
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+
+            // Reset modal content
+            modal.querySelector('img').src = '';
+            modal.querySelector('h3').textContent = '';
+            modal.querySelector('.description').textContent = '';
+            modal.querySelector('.price').textContent = '';
+        }
+    </script>
+	<!-- End of product details Model -->
+	
+	<!-- Start of Cart Model -->
+	
+        <!-- Cart Button -->
+        <button id="view-cart" style="position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; padding: 15px 20px; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">
+            🛒
+        </button>
+    </div>
+
+<!-- Cart Modal -->
+<!-- Cart Modal -->
+<!-- Cart Modal -->
+<div class="cart-modal" style="display: none;">
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="close-cart">X</button>
+    </div>
+    <div id="cart-items">
+        <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-footer">
+        <p class="total-price">Total: $0.00</p>
+        <button id="checkout">Checkout</button>
+    </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" style="display: none;"></div>
+
+<!-- Checkout Page -->
+<div class="checkout-page" style="display: none;">
+    <h2>Checkout</h2>
+    <div id="checkout-items">
+        <!-- Checkout items will be dynamically added here -->
+    </div>
+    <p class="checkout-total-price">Total: $0.00</p>
+    <button id="place-order">Place Order</button>
+</div>
+
+<!-- Order Confirmation Page -->
+<div class="confirmation-page" style="display: none;">
+    <h2>Order Confirmed!</h2>
+    <p>Your order has been placed successfully.</p>
+    <p>Thank you for shopping with us!</p>
+</div>
+
+<script>
+        let cart = [];
+
+        // Add to Cart functionality
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function () {
+        const product = this.closest('.product'); // Get the parent product container
+        const productId = product.getAttribute('data-id'); // Unique product ID
+        const productName = product.querySelector('h3').textContent;
+        const productPrice = parseFloat(product.querySelector('.price').textContent.replace('$', ''));
+
+        // Check if the product already exists in the cart
+        const existingProduct = cart.find(item => item.id === productId);
+
+        if (existingProduct) {
+            existingProduct.quantity += 1; // Increment quantity
+        } else {
+            // Add a new product to the cart
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: 1,
+            });
+        }
+
+        updateCart(); // Refresh the cart modal
+        showMessage("Items added to the cart successfully!"); // Show success message
+    });
+});
+
+// Buy Now functionality (similar to Add to Cart)
+document.querySelectorAll('.buy-now').forEach(button => {
+    button.addEventListener('click', function () {
+        const product = this.closest('.product');
+        const productId = product.getAttribute('data-id');
+        const productName = product.querySelector('h3').textContent;
+        const productPrice = parseFloat(product.querySelector('.price').textContent.replace('$', ''));
+
+        const existingProduct = cart.find(item => item.id === productId);
+
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: 1,
+            });
+        }
+
+        updateCart(); // Refresh the cart modal immediately
+        document.getElementById('view-cart').click(); // Open the cart modal
+    });
+});
+
+        // View Cart
+        document.addEventListener('DOMContentLoaded', function () {
+    // Show Cart Modal
+    document.getElementById('view-cart').addEventListener('click', function () {
+        document.querySelector('.cart-modal').style.display = 'block';
+        document.querySelector('.overlay').style.display = 'block';
+    });
+
+    // Close Cart Modal by clicking the overlay
+    document.querySelector('.overlay').addEventListener('click', function () {
+        console.log('Overlay clicked'); // Debugging
+        document.querySelector('.cart-modal').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+    });
+
+    // Close Cart Modal by clicking the close button
+    document.querySelector('.close-cart').addEventListener('click', function () {
+        console.log('Close button clicked'); // Debugging
+        document.querySelector('.cart-modal').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+    });
+});
+
+
+        // Checkout
+        document.getElementById('checkout').addEventListener('click', function () {
+    if (cart.length === 0) {
+        alert('Cart is empty!');
+        return;
+    }
+
+    // Encode cart data for passing in the query string
+    const cartData = encodeURIComponent(JSON.stringify(cart));
+
+    // Redirect to the order page with the cart data as a query parameter
+    window.location.href = `file:///C:/ketan/Internship/Healet/healet-html/Order%20page.html?cart=${cartData}`;
+});
+
+function updateCart() {
+    console.log('Cart contents:', cart); // Debug: Check cart array
+
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';
+
+    cart.forEach(item => {
+        console.log('Rendering item:', item); // Debug: Check each item
+        // Render logic
+    });
+
+    console.log('Cart updated successfully');
+}
+function updateCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = ''; // Clear existing items in the modal
+
+    let totalPrice = 0;
+
+    // Iterate through the cart array and add items to the modal
+    cart.forEach(item => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.classList.add('cart-item');
+        cartItemDiv.innerHTML = `
+            <div class="item-details">
+                <p><strong>${item.name}</strong></p>
+                <p>Price: $${item.price.toFixed(2)}</p>
+                <p>Quantity: ${item.quantity}</p>
+            </div>
+            <button class="remove-item" data-id="${item.id}">Remove</button>
+        `;
+        cartItemsContainer.appendChild(cartItemDiv);
+
+        // Calculate total price
+        totalPrice += item.price * item.quantity;
+    });
+
+    // Update the total price in the cart footer
+    document.querySelector('.total-price').textContent = `Total: $${totalPrice.toFixed(2)}`;
+
+    // Add functionality to remove items from the cart
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function () {
+            const itemId = this.getAttribute('data-id');
+            cart = cart.filter(item => item.id !== itemId); // Remove the item from the cart array
+            updateCart(); // Refresh the cart modal
+        });
+    });
+}
+
+// Function to show a message
+function showMessage(message) {
+    const messageContainer = document.createElement('div');
+    messageContainer.textContent = message;
+    messageContainer.style.position = 'fixed';
+    messageContainer.style.top = '20px'; // Position it at the top
+    messageContainer.style.left = '50%'; // Center horizontally
+    messageContainer.style.transform = 'translateX(-50%)'; // Center alignment adjustment
+    messageContainer.style.backgroundColor = '#28a745'; // Green background
+    messageContainer.style.color = 'white';
+    messageContainer.style.padding = '10px 20px';
+    messageContainer.style.borderRadius = '5px';
+    messageContainer.style.zIndex = '1001';
+    messageContainer.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+    messageContainer.style.opacity = '1';
+    messageContainer.style.transition = 'opacity 0.5s ease-in-out';
+    messageContainer.style.fontSize = '16px'; // Slightly larger font
+    messageContainer.style.fontWeight = 'bold';
+
+    // Append the message to the body
+    document.body.appendChild(messageContainer);
+
+    // Automatically remove the message after 3 seconds
+    setTimeout(() => {
+        messageContainer.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(messageContainer);
+        }, 500); // Delay to match the fade-out animation
+    }, 3000);
+}
+    </script>
+</body>
+</html>
