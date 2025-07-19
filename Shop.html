@@ -446,7 +446,7 @@
         <li><a href="#">Bracelets</a></li>
         <li><a href="#">Rings</a></li>
     </ul>
-    <a href="file:///C:/ketan/Internship/Healet/healet-html/index.html" class="home-button">Home Page</a>
+    <a href="index.html" class="home-button">Home Page</a>
 </div>
 
 
@@ -831,7 +831,7 @@ document.querySelectorAll('.buy-now').forEach(button => {
     const cartData = encodeURIComponent(JSON.stringify(cart));
 
     // Redirect to the order page with the cart data as a query parameter
-    window.location.href = `file:///C:/ketan/Internship/Healet/healet-html/Order%20page.html?cart=${cartData}`;
+    window.location.href = `Order%20page.html?cart=${cartData}`;
 });
 
 function updateCart() {
