@@ -622,7 +622,7 @@
             const description = document.getElementById('product-description').innerText;
 
             // Create URL with parameters
-            const orderPageUrl = `Order Page.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
+            const orderPageUrl = `Order.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
 
             // Redirect to Order Page
             window.location.href = orderPageUrl;
@@ -831,7 +831,7 @@ document.querySelectorAll('.buy-now').forEach(button => {
     const cartData = encodeURIComponent(JSON.stringify(cart));
 
     // Redirect to the order page with the cart data as a query parameter
-    window.location.href = `Order%20page.html?cart=${cartData}`;
+    window.location.href = `Order.html?cart=${cartData}`;
 });
 
 function updateCart() {
