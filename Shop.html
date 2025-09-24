@@ -434,6 +434,28 @@
 					opacity: 1;
 				}
 			}
+			/* For mobile screens */
+			@media (max-width: 768px) {
+			  .review_form {
+				padding: 15px;
+				margin: 20px;
+			  }
+
+			  .review_form h3 {
+				font-size: 18px;
+			  }
+
+			  .custom-input {
+				font-size: 13px;
+				padding: 6px 10px;
+			  }
+
+			  .custom-btn {
+				font-size: 13px;
+				padding: 6px 16px;
+			  }
+}
+
     </style>
 </head>
 <body>
@@ -915,5 +937,20 @@ function showMessage(message) {
     }, 3000);
 }
     </script>
+	
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    if (productId) {
+        const product = document.querySelector(`.product[data-id="${productId}"]`);
+        if (product) {
+            // Simulate clicking "View Details"
+            product.querySelector(".view-details").click();
+        }
+    }
+});
+</script>
 </body>
 </html>
