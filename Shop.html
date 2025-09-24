@@ -636,7 +636,7 @@
             document.querySelector('.overlay').style.display = 'none';
         });
 
-        // Redirect to the "Order Page.html" with product details
+        // Redirect to the "order Page.html" with product details
         document.querySelector('.buy-now').addEventListener('click', function() {
             // Get product details
             const name = document.getElementById('product-name').innerText;
@@ -644,9 +644,9 @@
             const description = document.getElementById('product-description').innerText;
 
             // Create URL with parameters
-            const orderPageUrl = `Order.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
+            const orderPageUrl = `order.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
 
-            // Redirect to Order Page
+            // Redirect to order Page
             window.location.href = orderPageUrl;
         });
     </script>
@@ -751,12 +751,12 @@
         <!-- Checkout items will be dynamically added here -->
     </div>
     <p class="checkout-total-price">Total: $0.00</p>
-    <button id="place-order">Place Order</button>
+    <button id="place-order">Place order</button>
 </div>
 
-<!-- Order Confirmation Page -->
+<!-- order Confirmation Page -->
 <div class="confirmation-page" style="display: none;">
-    <h2>Order Confirmed!</h2>
+    <h2>order Confirmed!</h2>
     <p>Your order has been placed successfully.</p>
     <p>Thank you for shopping with us!</p>
 </div>
@@ -853,7 +853,7 @@ document.querySelectorAll('.buy-now').forEach(button => {
     const cartData = encodeURIComponent(JSON.stringify(cart));
 
     // Redirect to the order page with the cart data as a query parameter
-    window.location.href = `Order.html?cart=${cartData}`;
+    window.location.href = `order.html?cart=${cartData}`;
 });
 
 function updateCart() {
