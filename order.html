@@ -153,13 +153,15 @@ button:hover {
     <!-- Order Form -->
     <div class="order-form">
         <h2>Order Form</h2>
-        <form action="http://localhost/mywebsite/submit-order.php"" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="text" name="phone" placeholder="Phone Number" required>
-            <textarea name="address" rows="4" placeholder="Shipping Address" required></textarea>
-            <button type="submit">Place Order</button>
-        </form>
+        <form action="https://formspree.io/f/xnngqkap" method="POST">
+		  <input type="text" name="name" placeholder="Full Name" required>
+		  <input type="email" name="email" placeholder="Email Address" required>
+		  <input type="text" name="phone" placeholder="Phone Number" required>
+		  <textarea name="address" rows="4" placeholder="Shipping Address" required></textarea>
+		  <input type="hidden" name="product" id="hidden-product">
+		  <input type="hidden" name="total" id="hidden-total">
+		  <button type="submit">Place Order</button>
+		</form>
     </div>
 </div>
 
@@ -216,6 +218,21 @@ button:hover {
     } else {
         document.querySelector('.cart-details').style.display = 'none'; // Hide cart if not applicable
     }
+</script>
+<script>
+  // Pass product name and total to hidden fields
+  if (name) {
+    document.getElementById('hidden-product').value = name;
+  }
+
+  if (cart) {
+    const cartItems = JSON.parse(decodeURIComponent(cart));
+    let totalPrice = 0;
+    cartItems.forEach(item => {
+      totalPrice += parseFloat(item.price) * item.quantity;
+    });
+    document.getElementById('hidden-total').value = `$${totalPrice.toFixed(2)}`;
+  }
 </script>
 </body>
 </html>
