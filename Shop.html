@@ -98,10 +98,11 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .product img {
-            width: 100%;
-            height: auto;
-        }
+		.product img {
+		  width: 100%;
+		  max-width: 300px; /* keeps it from being too large on desktop */
+		}
+
 
         .product h3 {
             font-size: 1.2rem;
@@ -434,27 +435,49 @@
 					opacity: 1;
 				}
 			}
-			/* For mobile screens */
-			@media (max-width: 768px) {
-			  .review_form {
-				padding: 15px;
-				margin: 20px;
-			  }
+		/* For tablets and smaller screens */
+		@media (max-width: 768px) {
+		  .container {
+			flex-direction: column;
+			padding: 10px;
+		  }
 
-			  .review_form h3 {
-				font-size: 18px;
-			  }
+		  .order-details, .cart-details, .order-form {
+			min-width: 100%;
+			box-sizing: border-box;
+		  }
 
-			  .custom-input {
-				font-size: 13px;
-				padding: 6px 10px;
-			  }
+		  .cart-details .cart-table th,
+		  .cart-details .cart-table td {
+			font-size: 0.85rem;
+			padding: 8px;
+		  }
 
-			  .custom-btn {
-				font-size: 13px;
-				padding: 6px 16px;
-			  }
-}
+		  input, textarea, button {
+			font-size: 0.9rem;
+			padding: 10px;
+		  }
+		}
+
+		/* For small mobile screens */
+		@media (max-width: 480px) {
+		  h2 {
+			font-size: 1.2rem;
+		  }
+
+		  h3 {
+			font-size: 1rem;
+		  }
+
+		  .cart-details .cart-table {
+			font-size: 0.8rem;
+		  }
+
+		  button {
+			width: 100%;
+			padding: 12px;
+		  }
+		}
 
     </style>
 </head>
