@@ -516,6 +516,60 @@
 			padding: 12px;
 		  }
 		}
+		
+				/* Desktop - keep inside sidebar */
+		.home-button {
+		  display: block;
+		  width: 90%;
+		  margin: 10px auto;
+		  padding: 10px;
+		  font-size: 1rem;
+		  background: #fff;
+		  border: 1px solid #ccc;
+		  border-radius: 8px;
+		  cursor: pointer;
+		}
+
+
+		.home-button {
+		  display: block;
+		  width: 90%;
+		  margin: 10px auto;
+		  padding: 10px;
+		  font-size: 1rem;
+		  text-align: center;
+		  background: #fff;
+		  border: 1px solid #ccc;
+		  border-radius: 8px;
+		  color: #333;
+		  text-decoration: none;
+		  cursor: pointer;
+		}
+
+		/* Mobile (make it float) */
+		@media (max-width: 768px) {
+		  .home-button {
+			position: fixed;
+			bottom: 15px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 90%;
+			max-width: 300px;
+			z-index: 2000;
+			background: #fff;
+			border: 2px solid #007bff;
+			color: #007bff;
+			font-weight: bold;
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		  }
+
+		  /* Hide sidebar version on mobile */
+		  .sidebar .home-button {
+			display: none;
+		  }
+		}
+
+
 
     </style>
 </head>
@@ -529,7 +583,7 @@
         <li><a href="#">Bracelets</a></li>
         <li><a href="#">Rings</a></li>
     </ul>
-    <a href="index.html" class="home-button">Home Page</a>
+	<a href="index.html" class="home-button">Home Page</a>
 </div>
 
 
