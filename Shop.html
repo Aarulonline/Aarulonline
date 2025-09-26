@@ -630,26 +630,27 @@
     </div>
     </div>
 
-    <script>
-        // Close button functionality
-        document.querySelector('.close').addEventListener('click', function() {
-            document.querySelector('.overlay').style.display = 'none';
-        });
+		<script>
+			// Close button functionality
+			document.querySelector('.close').addEventListener('click', function() {
+				document.querySelector('.overlay').style.display = 'none';
+			});
 
-        // Redirect to the "order Page.html" with product details
-        document.querySelector('.buy-now').addEventListener('click', function() {
-            // Get product details
-            const name = document.getElementById('product-name').innerText;
-            const price = document.getElementById('product-price').innerText;
-            const description = document.getElementById('product-description').innerText;
+			// Redirect to the "order.html" with product details
+			document.querySelector('.buy-now').addEventListener('click', function() {
+				// Get product details
+				const name = document.getElementById('product-name').innerText;
+				const price = document.getElementById('product-price').innerText.replace('$',''); // remove $ if present
+				const description = document.getElementById('product-description').innerText;
 
-            // Create URL with parameters
-            const orderPageUrl = `order.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
+				// Create URL with parameters
+				const orderPageUrl = `order.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&description=${encodeURIComponent(description)}`;
 
-            // Redirect to order Page
-            window.location.href="order.html";
-        });
-    </script>
+				// Redirect to order page with details
+				window.location.href = orderPageUrl;
+			});
+		</script>
+
     <script>
         // Handle category click
         document.querySelectorAll('.sidebar ul li a').forEach(categoryLink => {
